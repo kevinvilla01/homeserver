@@ -7,15 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    //Prevenir SQL INJECTION conn consultas separados
     $query = pg_query($connection, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
 
     if (pg_num_rows($query) > 0) {
         $user = pg_fetch_assoc($query);
 
-            //Redireccionar al home
-            header('Location: ../home.php');
-            exit;
+        //Redireccionar al home
+        header('Location: ../home.php');
+        exit;
+
         } else {
             echo 'Incorrect password';
         }
