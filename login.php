@@ -10,8 +10,6 @@
     <script src="jquery-3.7.1.min.js"></script>
     <!-- sweetalert -->
     <script src="sweetalert2.all.min.js"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <title>VS - Login</title>
 </head>
 <body>
@@ -57,7 +55,7 @@
         border-color: #0056b3;
     }
     </style>
-    
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4">
