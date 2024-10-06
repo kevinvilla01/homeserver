@@ -10,6 +10,10 @@
     <script src="jquery-3.7.1.min.js"></script>
     <!-- sweetalert -->
     <script src="sweetalert2.all.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>VS - Login</title>
 </head>
 <body>
