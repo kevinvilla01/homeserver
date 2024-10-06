@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     //Prevenir SQL INJECTION conn consultas separados
-    $query = "SELECT * FROM users WHERE username = $1";
+    $query = "SELECT * FROM users WHERE username = $username";
     $result = pg_query_params($connection, $query, array($username));
 
     if ($result && pg_num_rows($result) > 0) {
