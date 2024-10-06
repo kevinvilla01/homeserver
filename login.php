@@ -31,11 +31,7 @@
 
     .login-container h2 {
         text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .login-container h2 {
-        text-align: center;
+        font-style: oblique;
         margin-bottom: 30px;
     }
 
