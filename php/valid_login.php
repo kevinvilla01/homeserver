@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $user['username'];
 
             //Redireccionar al home
-            header('Location: home.php');
+            header('Location: ../home.php');
             exit;
         } else {
             echo 'Incorrect password';
