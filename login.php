@@ -31,7 +31,6 @@
 
     .login-container h2 {
         text-align: center;
-        font-style: oblique;
         margin-bottom: 30px;
     }
 
@@ -44,6 +43,7 @@
         background-color: #007bff;
         border-color: #007bff;
         transition: all 0.3s ease;
+        color: #ffffff;
     }
 
     .btn-custom:hover {
