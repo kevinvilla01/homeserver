@@ -11,7 +11,7 @@
     <!-- sweetalert -->
     <script src="sweetalert2.all.min.js"></script>
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>VS - Login</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
             <div class="col-md-4">
                 <div class="login-container">
                     <h2>Login</h2>
-                    <form id="loginForm" action="/php/valid_login.php" method="POST">
+                    <form id="loginForm" action="php/valid_login.php" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
