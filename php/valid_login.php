@@ -7,7 +7,7 @@ try {
     $host = "localhost";
     $dbUsername = "postgres"; // Cambiar por tu usuario de la base de datos
     $dbPassword = "postgres"; // Cambiar por tu contraseña de la base de datos
-    $dbName = "verver"; // Cambiar por tu base de datos
+    $dbName = "vserver"; // Cambiar por tu base de datos
     $dsn = "pgsql:host=$host;dbname=$dbName";
 
     // Crear una conexión con PDO
