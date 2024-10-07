@@ -36,11 +36,11 @@ try {
             exit();
         } else {
             // Contraseña incorrecta
-            echo "<script>alert('Contraseña incorrecta.'); window.location.href = '../index.php';</script>";
+            echo "<script>alert('Contraseña incorrecta.'); window.location.href = '../login.php';</script>";
         }
     } else {
         // El usuario no existe
-        echo "<script>alert('Usuario no encontrado.'); window.location.href = '../index.php';</script>";
+        echo "<script>alert('Usuario no encontrado.'); window.location.href = '../login.php';</script>";
     }
 } catch (PDOException $e) {
     // Manejo de errores de conexión
