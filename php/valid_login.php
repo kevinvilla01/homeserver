@@ -1,32 +1,28 @@
 <?php
-require_once 'db_connect.php';
+require 'db_connect.php';
 
-$connection  = db_connect();
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if (empty($_POST["username"]) || empty($_POST["password"])){
+    echo "<script>alert('Los campos están vacíos');</script>";
+}
+else {
+    $usr=$_POST["username"];
+    $pass=$_POST["password"];
 
-    $query = pg_query($connection, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+    //Consulta para obtener el usuario y password
+    $query=pg_query($Conection,"SELECT * FROM users WHERE username='$usr' AND password ='$pass'");
 
-    if (pg_num_rows($query) > 0) {
-        $user = pg_fetch_assoc($query);
+    if (pg_num_rows($query)>0) {
+        $user = pg_fetch_assoc($query); // Obtiene la fila de resultados como un array asociativo
 
-        //Redireccionar al home
-        header('Location: ../home.php');
-        exit;
-
-        } else {
-            echo 'Incorrect password';
-        }
-    } else {
-        echo 'User not found';
+        //Redireccionar al dashboard según el rol
+        header("Location: ../home.php");
+        exit();
     }
-
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
-pg_close($connection);
+    else{
+        echo "<script>alert('ACCESO DENEGADO');</script>";
+    }
+}
 
 ?>
