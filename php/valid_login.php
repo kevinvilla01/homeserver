@@ -1,28 +1,49 @@
 <?php
-require 'db_connect.php';
-
+// Inicia la sesión
 session_start();
 
-if (empty($_POST["username"]) || empty($_POST["password"])){
-    echo "<script>alert('Los campos están vacíos');</script>";
-}
-else {
-    $usr=$_POST["username"];
-    $pass=$_POST["password"];
+try {
+    // Conexión a la base de datos PostgreSQL
+    $host = "localhost";
+    $dbUsername = "postgres"; // Cambiar por tu usuario de la base de datos
+    $dbPassword = "postgres"; // Cambiar por tu contraseña de la base de datos
+    $dbName = "vserver"; // Cambiar por tu base de datos
+    $dsn = "pgsql:host=$host;dbname=$dbName";
 
-    //Consulta para obtener el usuario y password
-    $query=pg_query($Conection,"SELECT * FROM users WHERE username='$usr' AND password ='$pass'");
+    // Crear una conexión con PDO
+    $conn = new PDO($dsn, $dbUsername, $dbPassword, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-    if (pg_num_rows($query)>0) {
-        $user = pg_fetch_assoc($query); // Obtiene la fila de resultados como un array asociativo
+    // Obtener los datos del formulario
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-        //Redireccionar al dashboard según el rol
-        header("Location: ../home.php");
-        exit();
+    // Consulta a la base de datos
+    $sql = "SELECT * FROM usuarios WHERE username = :username";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+
+    // Verificar si el usuario existe
+    if ($stmt->rowCount() > 0) {
+        // Obtener datos del usuario
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificar la contraseña
+        if (password_verify($password, $row['password'])) {
+            // Contraseña correcta, iniciar sesión
+            $_SESSION['username'] = $username;
+            header("Location: ../home.php"); // Redirigir a la página del dashboard
+            exit();
+        } else {
+            // Contraseña incorrecta
+            echo "<script>alert('Contraseña incorrecta.'); window.location.href = '../index.php';</script>";
+        }
+    } else {
+        // El usuario no existe
+        echo "<script>alert('Usuario no encontrado.'); window.location.href = '../index.php';</script>";
     }
-    else{
-        echo "<script>alert('ACCESO DENEGADO');</script>";
-    }
+} catch (PDOException $e) {
+    // Manejo de errores de conexión
+    echo "Error de conexión: " . $e->getMessage();
 }
-
 ?>
