@@ -18,7 +18,7 @@ try {
     $password = $_POST['password'];
 
     // Consulta a la base de datos
-    $sql = "SELECT * FROM usuarios WHERE username = :username";
+    $sql = "SELECT * FROM users WHERE username = :username";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
