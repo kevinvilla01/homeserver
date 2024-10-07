@@ -11,30 +11,22 @@ try {
     $conn = new PDO($dsn, $dbUsername, $dbPassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Consulta para obtener todos los usuarios con sus contraseñas actuales
-    $sql = "SELECT id_user, password FROM users"; // Asegúrate de que el nombre de la columna sea 'password'
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+            // Supongamos que tienes el nombre de usuario
+            $username = 'kev1';
+            $plainPassword = '1234'; // Contraseña en texto plano
 
-    // Recorrer cada usuario y actualizar su contraseña
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $userId = $row['id'];
-        $plainPassword = $row['password']; // Contraseña actual (texto plano o md5)
-
-        // Verificar si la contraseña está en texto plano o en md5 y luego cifrarla con password_hash()
-        if (strlen($plainPassword) < 60) { // Si la longitud es menor a 60, no es un hash de password_hash()
+            // Cifrar la contraseña
             $hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
 
-            // Actualizar la contraseña en la base de datos
-            $updateSql = "UPDATE users SET password = :hashedPassword WHERE id_user = :id";
-            $updateStmt = $conn->prepare($updateSql);
-            $updateStmt->bindParam(':hashedPassword', $hashedPassword);
-            $updateStmt->bindParam(':id', $userId, PDO::PARAM_INT);
-            $updateStmt->execute();
+            // Conectar a la base de datos
+            $conn = new PDO($dsn, $dbUsername, $dbPassword);
+            $sql = "UPDATE users SET password = :hashedPassword WHERE username = :username";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':hashedPassword', $hashedPassword);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            echo "Contraseña cambiada exitosamente.";
 
-            echo "Contraseña del usuario con ID $userId ha sido actualizada.<br>";
-        }
-    }
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
 }
